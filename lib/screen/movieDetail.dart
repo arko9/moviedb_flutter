@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_flutter/custom/itemRatingMovie.dart';
 import 'package:movie_flutter/models/movie.dart';
 
 class MovieDetail extends StatefulWidget {
@@ -33,12 +34,23 @@ class _MovieDetailState extends State<MovieDetail> {
               height: 300,
               child: Stack(
                 children: [
-                  Container(
-                    height: 170,
-                    width: double.infinity,
-                    child: Image.network(
-                      "https://image.tmdb.org/t/p/w220_and_h330_face${widget.models.backdropPath}",
-                      fit: BoxFit.cover,
+                  ShaderMask(
+                    shaderCallback: (rectangle) {
+                      return LinearGradient(
+                        colors: [Colors.black, Colors.transparent],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ).createShader(Rect.fromLTRB(
+                          0, 0, rectangle.height, rectangle.width));
+                    },
+                    blendMode: BlendMode.dstIn,
+                    child: Container(
+                      height: 190,
+                      width: double.infinity,
+                      child: Image.network(
+                        "https://image.tmdb.org/t/p/w220_and_h330_face${widget.models.backdropPath}",
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   Positioned(
@@ -71,8 +83,44 @@ class _MovieDetailState extends State<MovieDetail> {
                                 child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                Text("${widget.models.originalTitle}"),
-                                Text("${widget.models.voteAverage}"),
+                                Text(
+                                  "${widget.models.originalTitle}",
+                                  style: TextStyle(
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Text(
+                                  'Category movie | 2 hours',
+                                  style: TextStyle(
+                                      color: Colors.grey[400],
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        ItemRating(
+                                          rating: "${widget.models.popularity}",
+                                          titleRating: "Popularity",
+                                        ),
+                                        ItemRating(
+                                          rating: "${widget.models.voteCount}",
+                                          titleRating: "Vote Count",
+                                        ),
+                                        ItemRating(
+                                          rating:
+                                              "${widget.models.voteAverage}",
+                                          titleRating: "Vote Avarage",
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ],
                             ))
                           ],
@@ -93,7 +141,63 @@ class _MovieDetailState extends State<MovieDetail> {
                         )
                       ],
                     ),
-                  )
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              width: double.infinity,
+              margin: EdgeInsets.symmetric(horizontal: 10),
+              child: Column(
+                children: [
+                  Text(
+                    "${widget.models.overview}",
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.justify,
+                    maxLines: 3,
+                    style: TextStyle(
+                      fontSize: 15,
+                      height: 1.5,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 6,
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    child: Row(
+                      children: [
+                        Text(
+                          "Read More",
+                          style: TextStyle(fontSize: 15),
+                        ),
+                        Icon(Icons.arrow_drop_down)
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 60),
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                    width: 200,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(
+                          width: 3,
+                          color: Colors.white,
+                        )),
+                    child: Text(
+                      "Buy Tickets",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             )
