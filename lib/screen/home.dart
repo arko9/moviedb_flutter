@@ -117,16 +117,16 @@ class _HomeState extends State<Home> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             ItemRating(
+                              rating: "${list[_selectPage].voteAverage}",
+                              titleRating: "Vote Avarage",
+                            ),
+                            ItemRating(
                               rating: "${list[_selectPage].popularity}",
                               titleRating: "Popularity",
                             ),
                             ItemRating(
                               rating: "${list[_selectPage].voteCount}",
                               titleRating: "Vote Count",
-                            ),
-                            ItemRating(
-                              rating: "${list[_selectPage].voteAverage}",
-                              titleRating: "Vote Avarage",
                             ),
                           ],
                         ),

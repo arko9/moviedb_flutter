@@ -56,15 +56,15 @@ class _MovieDetailState extends State<MovieDetail> {
                   Positioned(
                     left: 10,
                     right: 10,
-                    top: 100,
+                    top: 130,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
                           children: [
                             Container(
-                              height: 200,
-                              width: 150,
+                              height: 150,
+                              width: 100,
                               child: Hero(
                                 tag: "${widget.index}",
                                 child: ClipRRect(
@@ -80,49 +80,52 @@ class _MovieDetailState extends State<MovieDetail> {
                               width: 16,
                             ),
                             Expanded(
-                                child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                Text(
-                                  "${widget.models.originalTitle}",
-                                  style: TextStyle(
-                                      fontSize: 28,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  'Category movie | 2 hours',
-                                  style: TextStyle(
-                                      color: Colors.grey[400],
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                Column(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        ItemRating(
-                                          rating: "${widget.models.popularity}",
-                                          titleRating: "Popularity",
-                                        ),
-                                        ItemRating(
-                                          rating: "${widget.models.voteCount}",
-                                          titleRating: "Vote Count",
-                                        ),
-                                        ItemRating(
-                                          rating:
-                                              "${widget.models.voteAverage}",
-                                          titleRating: "Vote Avarage",
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ))
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Text(
+                                    "${widget.models.originalTitle}",
+                                    style: TextStyle(
+                                        fontSize: 28,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    'Category movie | 2 hours',
+                                    style: TextStyle(
+                                        color: Colors.grey[400],
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  Column(
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          ItemRating(
+                                            rating:
+                                                "${widget.models.voteAverage}",
+                                            titleRating: "Vote Avarage",
+                                          ),
+                                          ItemRating(
+                                            rating:
+                                                "${widget.models.popularity}",
+                                            titleRating: "Popularity",
+                                          ),
+                                          ItemRating(
+                                            rating:
+                                                "${widget.models.voteCount}",
+                                            titleRating: "Vote Count",
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ],
@@ -154,7 +157,7 @@ class _MovieDetailState extends State<MovieDetail> {
                     "${widget.models.overview}",
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.justify,
-                    maxLines: 3,
+                    maxLines: 4,
                     style: TextStyle(
                       fontSize: 15,
                       height: 1.5,
