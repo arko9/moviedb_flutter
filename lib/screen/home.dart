@@ -1,13 +1,18 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:movie_flutter/custom/itemRatingMovie.dart';
 import 'package:movie_flutter/custom/itemTab.dart';
 import 'package:movie_flutter/custom/posterMovie.dart';
 
 import 'package:movie_flutter/models/movie.dart';
+import 'package:movie_flutter/models/user.dart';
 import 'package:movie_flutter/screen/movieDetail.dart';
 import 'package:movie_flutter/services/servicesMovie.dart';
 
 class Home extends StatefulWidget {
+  final User user;
+
+  const Home({Key key, this.user}) : super(key: key);
   @override
   _HomeState createState() => _HomeState();
 }
@@ -18,8 +23,15 @@ class _HomeState extends State<Home> {
   int _selectPage = 0;
   List<Movie> list = [];
   bool cekData = false;
+
+  // Inisialisasi Fire base
+  FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   @override
   void initState() {
+    _firebaseMessaging.getToken().then((value) {
+      print("FCM TOKEN $value");
+    });
+
     ServicesMovie.getNowPlaying().then((value) {
       setState(() {
         list = value;
@@ -219,6 +231,21 @@ class _HomeState extends State<Home> {
             IconButton(
               icon: Icon(Icons.search),
               onPressed: () {},
+            ),
+            Container(
+              padding: EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(3600),
+                child: Image.network(
+                  "${widget.user.photo}",
+                  fit: BoxFit.cover,
+                  width: 40,
+                  height: 40,
+                ),
+              ),
             )
           ],
         ),
